@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9CE38AC428510C0C00968F9D"
-               BuildableName = "2-Next"
+               BuildableName = "2-Square"
                BlueprintName = "2-Square"
-               ReferencedContainer = "container:OpenGL.xcodeproj">
+               ReferencedContainer = "container:OpenGL Tutorial.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -48,7 +48,7 @@
             BlueprintIdentifier = "9CE38AC428510C0C00968F9D"
             BuildableName = "2-Square"
             BlueprintName = "2-Square"
-            ReferencedContainer = "container:OpenGL.xcodeproj">
+            ReferencedContainer = "container:OpenGL Tutorial.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CE38AC428510C0C00968F9D"
-            BuildableName = "2-Next"
+            BuildableName = "2-Square"
             BlueprintName = "2-Square"
-            ReferencedContainer = "container:OpenGL.xcodeproj">
+            ReferencedContainer = "container:OpenGL Tutorial.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
