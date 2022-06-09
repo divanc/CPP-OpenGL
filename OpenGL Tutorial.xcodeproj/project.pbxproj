@@ -15,7 +15,8 @@
 		9CA2E103284EA2B400C6F260 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA2E102284EA2B400C6F260 /* CoreVideo.framework */; };
 		9CA2E110284F2E2700C6F260 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA2E10F284F2E2700C6F260 /* GLKit.framework */; };
 		9CA2E133284FAB8A00C6F260 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 9CA2E132284FAB8A00C6F260 /* glad.c */; };
-		9CE38AC828510C0C00968F9D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CE38AC728510C0C00968F9D /* main.cpp */; };
+		9CC09C3B2851CCB600AB323B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CC09C3A2851CCB600AB323B /* main.cpp */; };
+		9CC09C3C2851CCC000AB323B /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA2E10F284F2E2700C6F260 /* GLKit.framework */; };
 		9CE38ACC28510C2B00968F9D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA2E0FD284EA0FE00C6F260 /* OpenGL.framework */; };
 		9CE38ACD28510C3400968F9D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA2E0FF284EA26D00C6F260 /* Cocoa.framework */; };
 		9CE38ACE28510C3D00968F9D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA2E0F9284EA04C00C6F260 /* IOKit.framework */; };
@@ -66,8 +67,9 @@
 		9CA2E130284FAB7400C6F260 /* KHR */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KHR; sourceTree = "<group>"; };
 		9CA2E131284FAB7400C6F260 /* glad */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glad; sourceTree = "<group>"; };
 		9CA2E132284FAB8A00C6F260 /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
+		9CC09C392851CCA300AB323B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "2-Square/main.cpp"; sourceTree = SOURCE_ROOT; };
+		9CC09C3A2851CCB600AB323B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "2-Square/main.cpp"; sourceTree = "<group>"; };
 		9CE38AC528510C0C00968F9D /* 2-Square */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "2-Square"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CE38AC728510C0C00968F9D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		9CE38AD22851100A00968F9D /* Basic.shader */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; path = Basic.shader; sourceTree = "<group>"; };
 		9CE38AD42851115E00968F9D /* Shaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shaders.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +93,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CE38AD72851224E00968F9D /* libglfw3.a in Frameworks */,
+				9CC09C3C2851CCC000AB323B /* GLKit.framework in Frameworks */,
 				9CE38ACF28510C4400968F9D /* CoreVideo.framework in Frameworks */,
 				9CE38ACE28510C3D00968F9D /* IOKit.framework in Frameworks */,
 				9CE38ACD28510C3400968F9D /* Cocoa.framework in Frameworks */,
@@ -104,6 +107,7 @@
 		9C501A8E284BC35000C03F0F = {
 			isa = PBXGroup;
 			children = (
+				9CC09C3A2851CCB600AB323B /* main.cpp */,
 				9CA2E0EC284E9CA700C6F260 /* Dependencies */,
 				9C501A99284BC35000C03F0F /* 1-Triangle */,
 				9CE38AC628510C0C00968F9D /* 2-Square */,
@@ -181,7 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				9CE38AD128510F4B00968F9D /* Shaders */,
-				9CE38AC728510C0C00968F9D /* main.cpp */,
+				9CC09C392851CCA300AB323B /* main.cpp */,
 				9CE38AD42851115E00968F9D /* Shaders.h */,
 			);
 			name = "2-Square";
@@ -287,7 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CE38AC828510C0C00968F9D /* main.cpp in Sources */,
+				9CC09C3B2851CCB600AB323B /* main.cpp in Sources */,
 				9CE38AD028510C5100968F9D /* glad.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

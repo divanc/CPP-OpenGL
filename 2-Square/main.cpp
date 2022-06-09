@@ -1,10 +1,11 @@
 #pragma mark - Precompilation
 #define GL_SILENCE_DEPRECATION
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <iostream>
 #include <string>
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 #include "Shaders.h"
 
@@ -114,7 +115,7 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
         
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, 6, GL_INT, nullptr);
         
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
