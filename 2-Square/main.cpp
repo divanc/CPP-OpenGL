@@ -1,3 +1,4 @@
+#pragma mark - Overview
 /*
  In this lesson we are:
  
@@ -5,13 +6,21 @@
  -    As rect has 4 vertexes, while 2 triangles have 6
  -    we use IBO to reuse vertexes, which are already store in GPU
  -
- * 2. Create an debug error handler and apply it to every function
+ * 2. Define our shaders in a separate file and manually parse it
+ -
+ * 3. Create an debug error handler and apply it to every function
  -    Because OpenGL<4.3 is that way :(
  -
+ * 4. Pass a color into a shader from CPU using uniforms,
+ -    Then start a party!
+ -
+ * 5. Limit frame rate to not party too hard
  */
 
 #pragma mark - Precompilation
 #define GL_SILENCE_DEPRECATION
+#define SIZE 0.96f
+#define VSYNC 1
 
 #include <iostream>
 #include <string>
@@ -54,7 +63,7 @@ int main(void)
     
 #pragma mark - Create Window
     /* Create a windowed mode window and its OpenGL context */
-    GLCall(window = glfwCreateWindow(640, 480, "Divan genuine suff", NULL, NULL));
+    window = glfwCreateWindow(640, 480, "Divan genuine suff", NULL, NULL);
     if (!window)
     {
         GLCall(glfwTerminate());
@@ -63,7 +72,10 @@ int main(void)
     }
     
     /* Make the window's context current */
-    GLCall(glfwMakeContextCurrent(window));
+    glfwMakeContextCurrent(window);
+    
+    // Vertical sync. 1 Limits frame rate to monitor hz
+    glfwSwapInterval(VSYNC);
     
     int status = gladLoadGL();
     std::cout << "GLad status: " << status << std::endl;
@@ -77,10 +89,10 @@ int main(void)
 #pragma mark - Vertex Buffer init
     // data to store on GPU
     float vertexBuffer[] = {
-        -0.5f, -0.5f, // 0
-        0.5f, -0.5f, // 1
-        0.5f,  0.5f, // 2
-        -0.5f,  0.5f, // 3
+        -SIZE, -SIZE, // 0
+        SIZE, -SIZE, // 1
+        SIZE,  SIZE, // 2
+        -SIZE,  SIZE, // 3
     };
     
     // Get ID of memory address, where we will store vertex data
@@ -111,16 +123,31 @@ int main(void)
     
     
 #pragma mark - Shader Loading
-    GLCall(ShaderProgramSource shader = ParseShader("Shaders/Basic.shader"));
+    GLCall(ShaderProgramSource source = ParseShader("Shaders/Basic.shader"));
     
     
-    GLCall(unsigned int program = CreateShader(shader.VertexSource, shader.FragmentSource));
-    GLCall(glUseProgram(program));
+    GLCall(unsigned int shader = CreateShader(source.VertexSource, source.FragmentSource));
+    GLCall(glUseProgram(shader));
+    
+    
+#pragma mark - Passing color from CPU via Uniform
+    float red = 0.2;
+    float green = 0.22;
+    float blue = 0.998;
+    float alpha = 1.0;
+    
+    
+    
+    GLCall(int location = glGetUniformLocation(shader, "u_Color"));
+    ASSERT(location != -1);
+    GLCall(glUniform4f(location, red, green, blue, alpha));
     
 #pragma mark - Draw loop
     std::cout << "Version: " << glGetString(GL_VERSION) << std::endl;
     std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
     std::cout << "GLFW Version: " << glfwGetVersionString() << std::endl;
+    
+    float modifier = 1.1f;
     
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -128,9 +155,24 @@ int main(void)
         /* Render here */
         GLCall(glClear(GL_COLOR_BUFFER_BIT));
         
+        GLCall(glUniform4f(location, red, green, blue, alpha));
         
         GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
         
+        if (modifier > 0.0f) // ascending
+        {
+            if (red >= 1.0f) modifier = -0.05f;
+            else red *= modifier;
+        }
+        else // descending
+        {
+            if (red <= 0.0f)
+            {
+                red = 0.8f;
+                modifier = 1.2f;
+            }
+            else red += modifier;
+        }
         
         /* Swap front and back buffers */
         GLCall(glfwSwapBuffers(window));
@@ -139,7 +181,7 @@ int main(void)
         GLCall(glfwPollEvents());
     }
     
-    GLCall(glDeleteProgram(program));
+    GLCall(glDeleteProgram(shader));
     GLCall(glfwTerminate());
     
     return 0;
