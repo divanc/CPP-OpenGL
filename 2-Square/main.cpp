@@ -1,3 +1,15 @@
+/*
+ In this lesson we are:
+ 
+ * 1. Drawing a rectangle made out of 2 triangles.
+ -    As rect has 4 vertexes, while 2 triangles have 6
+ -    we use IBO to reuse vertexes, which are already store in GPU
+ -
+ * 2. Create an debug error handler and apply it to every function
+ -    Because OpenGL<4.3 is that way :(
+ -
+ */
+
 #pragma mark - Precompilation
 #define GL_SILENCE_DEPRECATION
 
@@ -8,6 +20,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Shaders.h"
+#include "Errors.h"
 
 void Cb(int code, const char* message)
 {
@@ -41,16 +54,16 @@ int main(void)
     
 #pragma mark - Create Window
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Divan genuine suff", NULL, NULL);
+    GLCall(window = glfwCreateWindow(640, 480, "Divan genuine suff", NULL, NULL));
     if (!window)
     {
-        glfwTerminate();
+        GLCall(glfwTerminate());
         std::cout << "NO WINDOW" << std::endl;
         return -1;
     }
     
     /* Make the window's context current */
-    glfwMakeContextCurrent(window);
+    GLCall(glfwMakeContextCurrent(window));
     
     int status = gladLoadGL();
     std::cout << "GLad status: " << status << std::endl;
@@ -58,8 +71,8 @@ int main(void)
     
     // Doesnt work without this
     unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
+    GLCall(glGenVertexArrays(1, &VAO));
+    GLCall(glBindVertexArray(VAO));
     
 #pragma mark - Vertex Buffer init
     // data to store on GPU
@@ -72,9 +85,9 @@ int main(void)
     
     // Get ID of memory address, where we will store vertex data
     unsigned int vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), vertexBuffer, GL_STATIC_DRAW);
+    GLCall(glGenBuffers(1, &vbo));
+    GLCall(glBindBuffer(GL_ARRAY_BUFFER, vbo));
+    GLCall(glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), vertexBuffer, GL_STATIC_DRAW));
     
     
 #pragma mark - Index Buffer init
@@ -85,24 +98,24 @@ int main(void)
     };
     
     unsigned int ibo;
-    glGenBuffers(1, &ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indexBuffer, GL_STATIC_DRAW);
+    GLCall(glGenBuffers(1, &ibo));
+    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo));
+    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indexBuffer, GL_STATIC_DRAW));
     
     // Enable attribution
-    glEnableVertexAttribArray(0);
+    GLCall(glEnableVertexAttribArray(0));
     // Tell GPU what is inside buffer (specify layout of buffer): 0,
     // 2 floats inside vertex, 8 bytes until another vertex
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+    GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0));
     
     
     
 #pragma mark - Shader Loading
-    ShaderProgramSource shader = ParseShader("Shaders/Basic.shader");
+    GLCall(ShaderProgramSource shader = ParseShader("Shaders/Basic.shader"));
     
     
-    unsigned int program = CreateShader(shader.VertexSource, shader.FragmentSource);
-    glUseProgram(program);
+    GLCall(unsigned int program = CreateShader(shader.VertexSource, shader.FragmentSource));
+    GLCall(glUseProgram(program));
     
 #pragma mark - Draw loop
     std::cout << "Version: " << glGetString(GL_VERSION) << std::endl;
@@ -113,19 +126,21 @@ int main(void)
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+        GLCall(glClear(GL_COLOR_BUFFER_BIT));
         
-        glDrawElements(GL_TRIANGLES, 6, GL_INT, nullptr);
+        
+        GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+        
         
         /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+        GLCall(glfwSwapBuffers(window));
         
         /* Poll for and process events */
-        glfwPollEvents();
+        GLCall(glfwPollEvents());
     }
     
-    glDeleteProgram(program);
-    glfwTerminate();
+    GLCall(glDeleteProgram(program));
+    GLCall(glfwTerminate());
     
     return 0;
 }

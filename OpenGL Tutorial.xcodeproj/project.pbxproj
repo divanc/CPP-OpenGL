@@ -69,6 +69,7 @@
 		9CA2E132284FAB8A00C6F260 /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
 		9CC09C392851CCA300AB323B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "2-Square/main.cpp"; sourceTree = SOURCE_ROOT; };
 		9CC09C3A2851CCB600AB323B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "2-Square/main.cpp"; sourceTree = "<group>"; };
+		9CC09C3D2851CDEC00AB323B /* Errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Errors.h; path = "2-Square/Errors.h"; sourceTree = SOURCE_ROOT; };
 		9CE38AC528510C0C00968F9D /* 2-Square */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "2-Square"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CE38AD22851100A00968F9D /* Basic.shader */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; path = Basic.shader; sourceTree = "<group>"; };
 		9CE38AD42851115E00968F9D /* Shaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shaders.h; sourceTree = "<group>"; };
@@ -186,6 +187,7 @@
 			children = (
 				9CE38AD128510F4B00968F9D /* Shaders */,
 				9CC09C392851CCA300AB323B /* main.cpp */,
+				9CC09C3D2851CDEC00AB323B /* Errors.h */,
 				9CE38AD42851115E00968F9D /* Shaders.h */,
 			);
 			name = "2-Square";
