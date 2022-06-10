@@ -2,19 +2,6 @@
 /*
  In this lesson we are:
  
- * 1. Drawing a rectangle made out of 2 triangles.
- -    As rect has 4 vertexes, while 2 triangles have 6
- -    we use IBO to reuse vertexes, which are already store in GPU
- -
- * 2. Define our shaders in a separate file and manually parse it
- -
- * 3. Create an debug error handler and apply it to every function
- -    Because OpenGL<4.3 is that way :(
- -
- * 4. Pass a color into a shader from CPU using uniforms,
- -    Then start a party!
- -
- * 5. Limit frame rate to not party too hard
  */
 
 #pragma mark - Precompilation
@@ -30,7 +17,10 @@
 #include <GLFW/glfw3.h>
 
 #include "Shaders.h"
-#include "Errors.h"
+#include "Renderer.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.hpp"
+#include "VertexArray.hpp"
 
 void Cb(int code, const char* message)
 {
@@ -82,13 +72,6 @@ int main(void)
     std::cout << "GLad status: " << status << std::endl;
     
     
-    // Doesnt work without this
-    unsigned int VAO;
-    GLCall(glGenVertexArrays(1, &VAO));
-    GLCall(glBindVertexArray(VAO));
-    
-#pragma mark - Vertex Buffer init
-    // data to store on GPU
     float vertexBuffer[] = {
         -SIZE, -SIZE, // 0
         SIZE, -SIZE, // 1
@@ -96,32 +79,18 @@ int main(void)
         -SIZE,  SIZE, // 3
     };
     
-    // Get ID of memory address, where we will store vertex data
-    unsigned int vbo;
-    GLCall(glGenBuffers(1, &vbo));
-    GLCall(glBindBuffer(GL_ARRAY_BUFFER, vbo));
-    GLCall(glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), vertexBuffer, GL_STATIC_DRAW));
-    
-    
-#pragma mark - Index Buffer init
-    // reuse vertexes with provided order
     unsigned int indexBuffer[] = {
         0, 1, 2,
         2, 3, 0,
     };
     
-    unsigned int ibo;
-    GLCall(glGenBuffers(1, &ibo));
-    GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo));
-    GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indexBuffer, GL_STATIC_DRAW));
+    VertexArray va;
+    VertexBuffer vb(vertexBuffer, 4 * 2 * sizeof(float));
+    VertexBufferLayout layout;
+    layout.Push<float>(2);
+    va.AddBuffer(vb, layout);
     
-    // Enable attribution
-    GLCall(glEnableVertexAttribArray(0));
-    // Tell GPU what is inside buffer (specify layout of buffer): 0,
-    // 2 floats inside vertex, 8 bytes until another vertex
-    GLCall(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0));
-    
-    
+    IndexBuffer ib(indexBuffer, 6);
     
 #pragma mark - Shader Loading
     GLCall(ShaderProgramSource source = ParseShader("Shaders/Basic.shader"));
@@ -137,13 +106,19 @@ int main(void)
     float blue = 0.998;
     float alpha = 1.0;
     
-    
-    
     GLCall(int location = glGetUniformLocation(shader, "u_Color"));
     ASSERT(location != -1);
     GLCall(glUniform4f(location, red, green, blue, alpha));
     
 #pragma mark - Draw loop
+    
+    
+    // Drop
+    GLCall(glUseProgram(0));
+    va.Unbind();
+    vb.Unbind();
+    ib.Unbind();
+    
     std::cout << "Version: " << glGetString(GL_VERSION) << std::endl;
     std::cout << "Vendor: " << glGetString(GL_VENDOR) << std::endl;
     std::cout << "GLFW Version: " << glfwGetVersionString() << std::endl;
@@ -156,7 +131,11 @@ int main(void)
         /* Render here */
         GLCall(glClear(GL_COLOR_BUFFER_BIT));
         
+        GLCall(glUseProgram(shader));
         GLCall(glUniform4f(location, red, green, blue, alpha));
+        
+        va.Bind();
+        
         
         GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
         
