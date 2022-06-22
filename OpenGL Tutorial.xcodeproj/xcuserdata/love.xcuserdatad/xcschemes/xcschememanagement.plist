@@ -7,7 +7,7 @@
 		<key>1-Triangle.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<key>2-Next.xcscheme_^#shared#^_</key>
 		<dict>
@@ -19,6 +19,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>4-Batching.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>OpenGL.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -27,6 +32,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>9C80D87028638E1100CB2005</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9CB2BA6928533BCE0062C30D</key>
 		<dict>
 			<key>primary</key>

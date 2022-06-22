@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9CB2BA6928533BCE0062C30D"
-               BuildableName = "3-More"
-               BlueprintName = "3-More"
+               BuildableName = "3-imGui"
+               BlueprintName = "3-imGui"
                ReferencedContainer = "container:OpenGL Tutorial.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -36,7 +36,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/love/Library/Mobile Documents/com~apple~CloudDocs/Documents/Xcode/OpenGL/OpenGL/3-More"
+      customWorkingDirectory = "/Users/love/Library/Mobile Documents/com~apple~CloudDocs/Documents/Xcode/OpenGL/OpenGL/3-Class"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -46,8 +46,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CB2BA6928533BCE0062C30D"
-            BuildableName = "3-More"
-            BlueprintName = "3-More"
+            BuildableName = "3-imGui"
+            BlueprintName = "3-imGui"
             ReferencedContainer = "container:OpenGL Tutorial.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -63,8 +63,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9CB2BA6928533BCE0062C30D"
-            BuildableName = "3-More"
-            BlueprintName = "3-More"
+            BuildableName = "3-imGui"
+            BlueprintName = "3-imGui"
             ReferencedContainer = "container:OpenGL Tutorial.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
